@@ -2,7 +2,7 @@ package banking;
 
 public class Main {
     public static void main(String[] args) {
-        SQLite.createNewDataBase("card.s3db");
+        SQLite.createNewDataBase("mydatabase.db");
         BankService bankService = new BankService();
         bankService.showMenu();
     }
