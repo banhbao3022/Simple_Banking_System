@@ -1,5 +1,4 @@
-import banking.Main;
-import org.hyperskill.hstest.dynamic.input.DynamicTestingMethod;
+import org.hyperskill.hstest.dynamic.DynamicTest;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
 import org.hyperskill.hstest.stage.StageTest;
 import org.hyperskill.hstest.testcase.CheckResult;
@@ -26,16 +25,16 @@ public class SimpleBankSystemTest extends StageTest<String> {
     private static final String[] args = {"-fileName", databaseFileName};
     private static final Map<String, String> correctData = new HashMap<>();
 
-    private static final Pattern cardNumberPattern = Pattern.compile("400000\\d{10}");
+    private static final Pattern cardNumberPattern = Pattern.compile("^400000\\d{10}$", Pattern.MULTILINE);
     private static final Pattern pinPattern = Pattern.compile("^\\d{4}$", Pattern.MULTILINE);
 
     private static Connection connection;
 
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test1_checkDatabaseFile() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         stopAndCheckIfUserProgramWasStopped(program);
@@ -51,10 +50,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.correct();
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test2_checkConnection() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         stopAndCheckIfUserProgramWasStopped(program);
@@ -65,10 +64,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.correct();
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test3_checkIfTableExists() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         stopAndCheckIfUserProgramWasStopped(program);
@@ -91,10 +90,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.wrong("Your database doesn't have a table named 'card'");
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test4_checkColumns() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         stopAndCheckIfUserProgramWasStopped(program);
@@ -133,12 +132,12 @@ public class SimpleBankSystemTest extends StageTest<String> {
     }
 
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test5_checkAddingRowsToTheTable() {
 
         deleteAllRows();
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -215,10 +214,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.correct();
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test6_checkLogIn() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -254,10 +253,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.correct();
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test7_checkLogInWithWrongPin() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -292,10 +291,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.correct();
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test8_checkLogInToNotExistingAccount() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -330,10 +329,10 @@ public class SimpleBankSystemTest extends StageTest<String> {
         return CheckResult.correct();
     }
 
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult test9_checkBalance() {
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -362,12 +361,12 @@ public class SimpleBankSystemTest extends StageTest<String> {
     }
 
     // ttest is not a typo!
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult ttest10_checkAddIncome() {
 
         deleteAllRows();
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -392,7 +391,7 @@ public class SimpleBankSystemTest extends StageTest<String> {
             return CheckResult.wrong("Account balance int the database is wrong after adding income.\nExpected 10000");
         }
 
-        program = new TestedProgram(Main.class);
+        program = new TestedProgram();
         program.start(args);
 
         program.execute("2");
@@ -409,7 +408,7 @@ public class SimpleBankSystemTest extends StageTest<String> {
     }
 
     // ttest is not a typo!
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult ttest11_checkTransfer() {
 
         String incorrectCardNumber = "2000007269641764"; //Doesn't pass Luhn algorithm
@@ -417,7 +416,7 @@ public class SimpleBankSystemTest extends StageTest<String> {
 
         deleteAllRows();
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
@@ -488,12 +487,12 @@ public class SimpleBankSystemTest extends StageTest<String> {
     }
 
     // ttest is not a typo!
-    @DynamicTestingMethod
+    @DynamicTest
     CheckResult ttest12_checkTransfer() {
 
         deleteAllRows();
 
-        TestedProgram program = new TestedProgram(Main.class);
+        TestedProgram program = new TestedProgram();
         program.start(args);
 
         String output = program.execute("1");
