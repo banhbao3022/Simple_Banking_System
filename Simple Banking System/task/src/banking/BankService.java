@@ -1,5 +1,6 @@
 package banking;
 
+import java.sql.SQLOutput;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -18,14 +19,17 @@ public class BankService {
         }
     }
     public void bankService() {
-        int choice = sc.nextInt();
+        String choice = sc.next();
         switch (choice) {
-                case 1:
+                case "1":
                     this.createAccount();
-                case 2:
+                    break;
+                case "2":
                     this.logIn();
-                case 0:
+                    break;
+                case "0":
                     this.exit();
+                    break;
                 default:
                     System.out.println("Wrong choice");
                     this.showMenu();
@@ -39,25 +43,32 @@ public class BankService {
     }
     public void logInMenu() {
         try {
-            double choice = sc.nextDouble();
-            switch ((int) choice) {
-                case 4:
+            String choice = sc.next();
+            switch (choice) {
+                case "4":
                     this.closeAccount();
-                case 5:
+                    break;
+                case "5":
                     this.logOut();
-                case 1:
+                    break;
+                case "1":
                     this.checkBalance();
-                case 2:
+                    break;
+                case "2":
                     this.addIncome();
-                case 3:
+                    break;
+                case "3":
                     this.doTransfer();
-                case 0:
+                    break;
+                case "0":
                     this.exit();
+                    break;
                 default:
                     System.out.println("Wrong choice");
                     this.showMenu();
+                    break;
             }
-        } catch (NoSuchElementException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Error");
             this.showMenu();
         }
@@ -104,10 +115,15 @@ public class BankService {
     }
     private void addIncome() {
         System.out.println("Enter income:");
-        int income = sc.nextInt();
-        SQLite.addIncome(income,cardNumber);
-        System.out.println("Income was added!");
-        this.showMenu();
+        try {
+            int income = sc.nextInt();
+            SQLite.addIncome(income, cardNumber);
+            System.out.println("Income was added!");
+        }catch (Exception e){
+            System.out.println("Wrong income,please try again");
+        } finally {
+            this.showMenu();
+        }
     }
     private void doTransfer(){
         try {
@@ -133,7 +149,8 @@ public class BankService {
             }
             this.showMenu();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Wrong card number,please try again");
+            this.showMenu();
         }
     }
     private void closeAccount(){
