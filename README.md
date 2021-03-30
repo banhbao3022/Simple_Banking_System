@@ -1,5 +1,5 @@
 # Simple_Banking_System
-**A simple banking system with sqlite database work in Java Console.
+**A simple banking system with sqlite database work in Java Console.**
 
 **Main menu:**
 1. Create an account:create new account with card number and PIN
