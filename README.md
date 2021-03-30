@@ -1,5 +1,5 @@
 # Simple_Banking_System
-**A simple banking system with sqlite database work in Java Console. Maybe you need to add sqlite-jbdc to external librariies if you don't have it by sqlite.jar file**
+**A simple banking system with sqlite database work in Java Console.
 
 **Main menu:**
 1. Create an account:create new account with card number and PIN
