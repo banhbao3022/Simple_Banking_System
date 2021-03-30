@@ -133,7 +133,8 @@ public class BankService {
             if (!Card.luhnAlgorithm(cardNumber)) {
                 System.out.println("Probably you made a mistake in the card number. Please try again!");
             } else {
-                if (!SQLite.checkCard(cardNumber)) {
+                if (cardNumber.equals(this.cardNumber)) System.out.println("You can't transfer money to the same account!");
+                else if (!SQLite.checkCard(cardNumber)) {
                     System.out.println("Such a card does not exist.");
                 } else {
                     System.out.println("Enter how much money you want to transfer:");
